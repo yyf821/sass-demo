@@ -1,0 +1,54 @@
+$space: (0px, 4px, 8px, 16px, 24px, 32px);
+$cols: 12;
+$gutter: 24px;
+$row-columns: 4;
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@for $i from 1 through 6 {
+    .p-#{$i - 1} {
+        padding: nth($space, $i) !important;
+    }
+    .mb-#{$i - 1} {
+        margin-bottom: nth($space, $i) !important;
+    }
+}
+
+.row {
+    --gutter-x: #{$gutter};
+    --gutter-y: #{$gutter};
+    display: flex;
+    flex-wrap: wrap;
+    margin: calc(-1 * var(--gutter-y)) 0 0 calc(-1 * var(--gutter-x));
+    > * {
+        padding-left: var(--gutter-x);
+        margin-top: var(--gutter-y);
+    }
+}
+
+.col {
+    flex: 1 0 0%;
+}
+
+@for $i from 1 through $cols {
+    .col-#{$i} {
+        flex: 0 0 auto;
+        width: calc($i / $cols) * 100%;
+    }
+}
+
+@for $i from 1 through $row-columns {
+    .row-cols-#{$i} > * {
+        flex: 0 0 auto;
+        width: calc(100 / $i) * 1%;
+    }
+}
